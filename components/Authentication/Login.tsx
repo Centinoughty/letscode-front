@@ -1,12 +1,18 @@
 import Input from "@/util/Input";
 import { FormEvent, useState } from "react";
+import { loginAction } from "@/store/actions/authAction";
+import { useDispatch } from "react-redux";
+import store from "@/store/store";
 
 export default function Login() {
+  const dispatch = useDispatch<typeof store.dispatch>();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    const credentials = { email, password };
+    dispatch(loginAction(credentials));
   }
 
   return (
