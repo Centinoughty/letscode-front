@@ -16,7 +16,7 @@ export default function Input({
   return (
     <>
       <input
-        className="py-2 px-4 rounded-md outline-none w-full text-lg tracking-wider placeholder:text-lg placeholder:tracking-wider"
+        className="py-2 px-4 rounded-sm bg-gray-700 text-white border border-[#d182e9] outline-none w-full text-lg tracking-wider placeholder:text-lg placeholder:tracking-wider"
         placeholder={placeholder}
         type={type}
         value={value}

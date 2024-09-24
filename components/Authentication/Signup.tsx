@@ -29,7 +29,7 @@ export default function Signup() {
           value={password}
           setValue={setPassword}
         />
-        <button className="w-1/2 p-2 rounded-md text-lg text-gray-800 bg-gray-300 duration-300 hover:bg-gray-500">
+        <button className="mt-4 w-1/2 p-2 rounded-md text-lg text-gray-800 bg-gray-300 duration-300 hover:bg-gray-500">
           Register
         </button>
       </form>

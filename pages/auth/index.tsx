@@ -9,13 +9,13 @@ export default function Authenticatoin() {
   return (
     <>
       <main className="bg-black h-screen flex justify-center items-center">
-        <div className="w-[75%] h-[80%] flex">
+        <div className="w-full md:w-[75%] md:h-[80%] flex">
           <div className="hidden md:block min-w-[60%] relative">
             <img src="" alt="" />
           </div>
           <div className="w-full flex flex-col gap-6 items-center">
             <div className="w-[260px]">
-              <img src="./logo.png" />
+              <img src="./logo.png" className="opacity-90 duration-300 hover:opacity-100" />
             </div>
             {isLogin ? <Login /> : <Signup />}
             {isLogin ? (
