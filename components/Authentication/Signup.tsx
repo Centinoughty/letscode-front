@@ -1,20 +1,41 @@
+import { signUpAction } from "@/store/actions/authAction";
+import store from "@/store/store";
 import Input from "@/util/Input";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Signup() {
+  const dispatch = useDispatch<typeof store.dispatch>();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+  function handleSubmit(event?: FormEvent) {
+    event?.preventDefault();
+    const credentials = { name, email, password };
+    dispatch(signUpAction(credentials));
   }
+
+  // Add the feature to skip to next input bar on enter
+  // const inputFields = document.querySelectorAll<HTMLInputElement>("input");
+  // inputFields.forEach((input, index) => {
+  //   input.addEventListener("keyup", (event: KeyboardEvent) => {
+  //     if (event.key === "Enter") {
+  //       if (index < inputFields.length - 1) {
+  //         inputFields[index + 1].focus();
+  //       } else {
+  //         handleSubmit();
+  //       }
+  //     }
+  //   });
+  // });
 
   return (
     <>
       <form
+        id="loginForm"
         onSubmit={handleSubmit}
-        className="w-[90%] md:w-[80%] flex flex-col items-center justify-center gap-4"
+        className="w-[90%] md:w-[85%] flex flex-col items-center justify-center gap-4"
       >
         <Input placeholder="Name" type="text" value={name} setValue={setName} />
         <Input
@@ -29,7 +50,7 @@ export default function Signup() {
           value={password}
           setValue={setPassword}
         />
-        <button className="mt-4 w-1/2 p-2 rounded-md text-lg text-gray-800 bg-gray-300 duration-300 hover:bg-gray-500">
+        <button className="mt-2 w-1/2 p-2 rounded-md text-lg bg-gray-400 duration-300 hover:bg-gray-500">
           Register
         </button>
       </form>

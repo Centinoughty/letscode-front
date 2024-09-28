@@ -1,51 +1,69 @@
 import Login from "@/components/Authentication/Login";
 import Signup from "@/components/Authentication/Signup";
 import { useState } from "react";
-import { FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa6";
+import {
+  FaGithub,
+  FaGoogle,
+  FaLinkedin,
+  FaSquareFacebook,
+} from "react-icons/fa6";
 
 export default function Authenticatoin() {
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
   return (
     <>
-      <main className="bg-black h-screen flex justify-center items-center">
-        <div className="w-full md:w-[75%] md:h-[80%] flex">
-          <div className="hidden md:block min-w-[60%] relative">
-            <img src="" alt="" />
+      <main className="h-screen bg-slate-100 flex justify-center items-center">
+        <div className="p-1 w-full md:w-[40%] lg:w-[25%] h-full md:h-[90%] flex flex-col items-center gap-6">
+          <div className="flex justify-center">
+            <img
+              className="w-[80%] max-w-[400px] opacity-80 duration-300 hover:opacity-100 hover:scale-[1.01]"
+              src="./logo.png"
+              alt="Letscode"
+            />
           </div>
-          <div className="w-full flex flex-col gap-6 items-center">
-            <div className="w-[260px]">
-              <img src="./logo.png" className="opacity-90 duration-300 hover:opacity-100" />
+          {isLogin ? <Login /> : <Signup />}
+          {isLogin ? (
+            <div className="flex justify-center gap-2 text-[16px] text-slate-600">
+              <button>Forgot password?</button>
+              <p>•</p>
+              <button className="duration-300 hover:text-slate-800" onClick={() => setIsLogin(false)}>Sign Up</button>
             </div>
-            {isLogin ? <Login /> : <Signup />}
-            {isLogin ? (
-              <div className="flex justify-center gap-2 text-gray-400">
-                <p>Forgot password?</p>
-                <p>•</p>
-                <button onClick={() => setIsLogin(false)}>Signup</button>
-              </div>
-            ) : (
-              <div className="flex justify-center gap-2 text-gray-400">
-                <p>Have an account?</p>
-                <p>•</p>
-                <button onClick={() => setIsLogin(true)}>Login</button>
-              </div>
-            )}
-            <p className="text-gray-400">or You can sign in with</p>
-            <div className="text-gray-500 flex justify-center items-center gap-4">
-              <button>
-                <FaGithub className="duration-300 hover:text-white" size={24} />
-              </button>
-              <button>
-                <FaGoogle className="duration-300 hover:text-white" size={24} />
-              </button>
-              <button>
-                <FaLinkedin
-                  className="duration-300 hover:text-white"
-                  size={24}
-                />
-              </button>
+          ) : (
+            <div className="flex justify-center gap-2 text-[16px] text-slate-600">
+              <p>Have an account?</p>
+              <p>•</p>
+              <button className="duration-300 hover:text-slate-800" onClick={() => setIsLogin(true)}>Login</button>
             </div>
+          )}
+          <div>
+            <p className="text-lg text-slate-600">or You can sign in with</p>
+          </div>
+          <div className="flex justify-center items-center gap-6">
+            <button>
+              <FaGoogle
+                size={25}
+                className="text-slate-500 duration-200 hover:text-black hover:rotate-[360deg]"
+              />
+            </button>
+            <button>
+              <FaSquareFacebook
+                size={25}
+                className="text-slate-500 duration-200 hover:text-black hover:rotate-[360deg]"
+              />
+            </button>
+            <button>
+              <FaGithub
+                size={25}
+                className="text-slate-500 duration-200 hover:text-black hover:rotate-[360deg]"
+              />
+            </button>
+            <button>
+              <FaLinkedin
+                size={25}
+                className="text-slate-500 duration-200 hover:text-black hover:rotate-[360deg]"
+              />
+            </button>
           </div>
         </div>
       </main>

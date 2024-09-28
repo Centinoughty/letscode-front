@@ -6,8 +6,8 @@ import store from "@/store/store";
 
 export default function Login() {
   const dispatch = useDispatch<typeof store.dispatch>();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("test@example.com");
+  const [password, setPassword] = useState<string>("test@123");
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -19,7 +19,7 @@ export default function Login() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="w-[90%] md:w-[80%] flex flex-col items-center justify-center gap-4"
+        className="w-[90%] md:w-[85%] flex flex-col items-center justify-center gap-4"
       >
         <Input
           placeholder="Email"
@@ -33,7 +33,7 @@ export default function Login() {
           value={password}
           setValue={setPassword}
         />
-        <button className="mt-4 w-1/2 p-2 rounded-md text-lg text-gray-800 bg-gray-300 duration-300 hover:bg-gray-500">
+        <button className="mt-4 w-1/2 p-2 rounded-md text-lg bg-gray-400 duration-300 hover:bg-gray-500">
           Login
         </button>
       </form>
