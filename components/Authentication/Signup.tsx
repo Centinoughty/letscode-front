@@ -1,11 +1,13 @@
 import { signUpAction } from "@/store/actions/authAction";
 import store from "@/store/store";
 import Input from "@/util/Input";
+import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Signup() {
   const dispatch = useDispatch<typeof store.dispatch>();
+  const router = useRouter();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -13,7 +15,9 @@ export default function Signup() {
   function handleSubmit(event?: FormEvent) {
     event?.preventDefault();
     const credentials = { name, email, password };
-    dispatch(signUpAction(credentials));
+    dispatch(signUpAction(credentials)).then(() => {
+      router.push("/");
+    });
   }
 
   // Add the feature to skip to next input bar on enter

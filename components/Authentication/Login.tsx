@@ -3,16 +3,20 @@ import { FormEvent, useState } from "react";
 import { loginAction } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
 import store from "@/store/store";
+import { useRouter } from "next/router";
 
 export default function Login() {
   const dispatch = useDispatch<typeof store.dispatch>();
+  const router = useRouter();
   const [email, setEmail] = useState<string>("test@example.com");
   const [password, setPassword] = useState<string>("test@123");
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const credentials = { email, password };
-    dispatch(loginAction(credentials));
+    dispatch(loginAction(credentials)).then(() => {
+      router.push("/");
+    });
   }
 
   return (
