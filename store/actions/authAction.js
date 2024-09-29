@@ -1,5 +1,5 @@
 import { write } from "@/store/reducers/notificationReducer";
-import { login } from "../reducers/authReducer";
+import { login, logout } from "../reducers/authReducer";
 
 import axios from "axios";
 
@@ -14,6 +14,7 @@ export const loginAction = (credentials) => async (dispatch) => {
     dispatch(login({ token, user }));
     dispatch(write(response.data.message));
     localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
   } catch (error) {
     dispatch(write(error.response?.data?.message));
     console.log("Internal Server Error");
@@ -29,9 +30,18 @@ export const signUpAction = (credentials) => async (dispatch) => {
 
     const { token, user } = response.data;
     dispatch(login({ token, user }));
+    dispatch(write(response.data.message));
     localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
   } catch (error) {
     dispatch(write(error.response?.data?.message));
     console.log("Internal Serevr Error");
   }
+};
+
+export const logoutAction = () => (dispatch) => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  dispatch(logout());
 };

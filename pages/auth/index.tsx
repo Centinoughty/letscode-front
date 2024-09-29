@@ -1,6 +1,7 @@
 import Login from "@/components/Authentication/Login";
 import Signup from "@/components/Authentication/Signup";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   FaGithub,
   FaGoogle,
@@ -9,11 +10,24 @@ import {
 } from "react-icons/fa6";
 
 export default function Authenticatoin() {
-  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const router = useRouter();
+  const { mode } = router.query;
+  const isLogin = mode === "login" || !mode;
+  // const [isLogin, setIsLogin] = useState<boolean>(false);
+
+  const handleAuthSwitch = (authMode: "login" | "register") => {
+    router.push({ pathname: "/auth", query: { mode: authMode } });
+  };
+
+  useEffect(() => {
+    if (!mode) {
+      router.push({ pathname: "/auth", query: { mode: "login" } });
+    }
+  }, [mode, router]);
 
   return (
     <>
-      <main className="h-screen bg-slate-100 flex justify-center items-center">
+      <main className="h-screen flex justify-center items-center">
         <div className="p-1 w-full md:w-[40%] lg:w-[25%] h-full md:h-[90%] flex flex-col items-center gap-6">
           <div className="flex justify-center">
             <img
@@ -27,13 +41,23 @@ export default function Authenticatoin() {
             <div className="flex justify-center gap-2 text-[16px] text-slate-600">
               <button>Forgot password?</button>
               <p>•</p>
-              <button className="duration-300 hover:text-slate-800" onClick={() => setIsLogin(false)}>Sign Up</button>
+              <button
+                className="duration-300 hover:text-slate-800"
+                onClick={() => handleAuthSwitch("register")}
+              >
+                Sign Up
+              </button>
             </div>
           ) : (
             <div className="flex justify-center gap-2 text-[16px] text-slate-600">
               <p>Have an account?</p>
               <p>•</p>
-              <button className="duration-300 hover:text-slate-800" onClick={() => setIsLogin(true)}>Login</button>
+              <button
+                className="duration-300 hover:text-slate-800"
+                onClick={() => handleAuthSwitch("login")}
+              >
+                Login
+              </button>
             </div>
           )}
           <div>
