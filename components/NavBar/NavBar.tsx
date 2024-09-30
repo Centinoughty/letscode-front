@@ -1,10 +1,22 @@
+import Modal from "@/util/Modal";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { FaPlus, FaRegBell } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import CreateFile from "../Forms/CreateFile";
 
 export default function NavBar() {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const isAuth = useSelector((state: any) => state.auth.isAuth);
   const router = useRouter();
+
+  function handleCreateFileClick() {
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+  }
 
   return (
     <>
@@ -23,7 +35,10 @@ export default function NavBar() {
         )}
         {isAuth ? (
           <div className="p-1 flex justify-center items-center gap-3">
-            <button className="p-2 rounded-full duration-200 hover:bg-gray-300">
+            <button
+              onClick={handleCreateFileClick}
+              className="p-2 rounded-full duration-200 hover:bg-gray-300"
+            >
               <FaPlus size={20} />
             </button>
             <button className="p-2 rounded-full duration-200 hover:bg-gray-300">
@@ -57,6 +72,11 @@ export default function NavBar() {
           </>
         )}
       </nav>
+
+      {/*complete the code*/}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <CreateFile onClose={handleCloseModal} />
+      </Modal>
     </>
   );
 }
