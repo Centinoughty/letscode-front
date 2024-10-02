@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import FileCard from "../Cards/FileCard";
+import { useSelector } from "react-redux";
 
 interface File {
   _id: string;
@@ -13,7 +14,7 @@ interface File {
 export default function Dashboard() {
   const [fileIds, setFileIds] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
-  const token = localStorage.getItem("token");
+  const token = useSelector((state: any) => state.auth.token);
 
   useEffect(() => {
     async function fetchFileIds() {
